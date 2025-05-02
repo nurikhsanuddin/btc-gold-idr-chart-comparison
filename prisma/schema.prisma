@@ -1,0 +1,25 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model FetchLog {
+  id        Int      @id @default(autoincrement())
+  date      DateTime @default(now())
+  type      String   // "btc", "gold", "idr"
+}
+
+model PriceData {
+  id        Int      @id @default(autoincrement())
+  date      String
+  assetType String   // "btc", "gold", "idr"
+  price     Float
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([date, assetType])
+}
